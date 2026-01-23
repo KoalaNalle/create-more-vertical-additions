@@ -64,6 +64,7 @@ public class VerticalBeltConnectorItem extends BlockItem {
         // Remove first if no longer existant or valid
         if (heldStack.has(AllDataComponents.BELT_FIRST_SHAFT)) {
             firstPulley = heldStack.get(AllDataComponents.BELT_FIRST_SHAFT);
+            //noinspection DataFlowIssue
             if (!VerticalBeltConnectorItem.validateAxis(world, firstPulley) || !firstPulley.closerThan(pos, BeltConnectorItem.maxLength() * 2)) {
                 heldStack.remove(AllDataComponents.BELT_FIRST_SHAFT);
             }

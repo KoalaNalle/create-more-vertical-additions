@@ -25,4 +25,14 @@ public class BeltBlockEntityMixin {
         return original.call(instance, state) || state.getBlock() instanceof BeltBlock;
     }
 
+    @WrapOperation(
+            method = "hasPulley",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/tterrag/registrate/util/entry/BlockEntry;has(Lnet/minecraft/world/level/block/state/BlockState;)Z"
+            )
+    )
+    private static boolean hasPulleyHas(BlockEntry<Block> instance, BlockState state, Operation<Boolean> original) {
+        return original.call(instance, state) || state.getBlock() instanceof BeltBlock;
+    }
 }
