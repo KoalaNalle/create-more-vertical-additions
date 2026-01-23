@@ -1,10 +1,16 @@
 package com.kreidev.cmverticaladditions;
 
-import com.simibubi.create.content.kinetics.belt.BeltBlock;
-import com.simibubi.create.content.kinetics.belt.BeltBlockEntity;
+import com.simibubi.create.content.kinetics.belt.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
+// NOTE: BeltPart.START should always be at the bottom
 public class VerticalBeltBlock extends BeltBlock {
+
     public VerticalBeltBlock(Properties properties) {
         super(properties);
     }
@@ -19,5 +25,10 @@ public class VerticalBeltBlock extends BeltBlock {
     @Override
     public BlockEntityType<? extends BeltBlockEntity> getBlockEntityType() {
         return VerticalAdditions.VERTICAL_BELT_BLOCK_ENTITY.get();
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return VerticalBeltShapes.getShape(state);
     }
 }
