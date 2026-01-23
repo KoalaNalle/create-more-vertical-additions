@@ -4,7 +4,9 @@
   "package": "com.kreidev.cmverticaladditions.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BeltBlockMixin"
+    "BeltBlockEntityMixin",
+    "BeltBlockMixin",
+    "BeltRendererMixin"
   ],
   "minVersion": "0.8.5"
 }

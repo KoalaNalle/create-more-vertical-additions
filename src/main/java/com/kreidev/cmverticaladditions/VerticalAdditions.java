@@ -13,6 +13,7 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.createmod.catnip.outliner.Outliner;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -58,7 +59,6 @@ public class VerticalAdditions {
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
             .blockstate(new BeltGenerator()::generate)
-//            .transform(CStress.setNoImpact())
             .transform(displaySource(AllDisplaySources.ITEM_NAMES))
             .onRegister(CreateRegistrate.blockModel(() -> BeltModel::new))
             .clientExtension(() -> BeltBlock.RenderProperties::new)
@@ -66,9 +66,9 @@ public class VerticalAdditions {
 
     public static final BlockEntityEntry<VerticalBeltBlockEntity> VERTICAL_BELT_BLOCK_ENTITY = REGISTRATE
             .blockEntity("vertical_belt", VerticalBeltBlockEntity::new)
-            .visual(() -> BeltVisual::new, BeltBlockEntity::shouldRenderNormally)
+//            .visual(() -> BeltVisual::new, BeltBlockEntity::shouldRenderNormally)
             .validBlocks(VERTICAL_BELT_BLOCK)
-            .renderer(() -> VerticalBeltRenderer::new)
+//            .renderer(() -> VerticalBeltRenderer::new)
             .register();
 
     public static final ItemEntry<VerticalBeltConnectorItem> VERTICAL_BELT_CONNECTOR = REGISTRATE
@@ -89,7 +89,11 @@ public class VerticalAdditions {
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
-
+        // Something's wrong with registrate that makes me wanna commit seppuku
+        BlockEntityRenderers.register(
+                VERTICAL_BELT_BLOCK_ENTITY.get(),
+                VerticalBeltRenderer::new
+        );
     }
 
     public static void serverTick(ServerTickEvent.Pre event) {
@@ -106,12 +110,16 @@ public class VerticalAdditions {
 
             VerticalAdditions.LOGGER.debug("pos: " + pos);
 
-            if (!(BeltHelper.getSegmentBE(level, pos) instanceof VerticalBeltBlockEntity be)) return;
+            if (!(BeltHelper.getSegmentBE(level, pos) instanceof BeltBlockEntity be)) return;
 
             VerticalAdditions.LOGGER.debug("segment: " + be);
+
+            VerticalAdditions.LOGGER.debug("be length: " + be.beltLength);
+
+
             VerticalAdditions.LOGGER.debug("controller: " + controller);
 
-            VerticalAdditions.LOGGER.debug("segment: " + be.getController());
+//            VerticalAdditions.LOGGER.debug("segment: " + be.getController());
 
 //            VerticalAdditions.LOGGER.debug("controller pos: " + controller.getBlockPos());
 

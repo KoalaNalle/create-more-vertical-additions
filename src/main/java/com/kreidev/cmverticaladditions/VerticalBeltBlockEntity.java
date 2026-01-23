@@ -22,7 +22,6 @@ public class VerticalBeltBlockEntity extends BeltBlockEntity {
                     if (!BeltBlock.canTransportObjects(be.getBlockState()))
                         return null;
                     if (!be.isRemoved() && be.itemHandler == null) {
-                        VerticalAdditions.LOGGER.debug("initialized");
                         be.initializeItemHandler();
                     }
 
@@ -34,11 +33,5 @@ public class VerticalBeltBlockEntity extends BeltBlockEntity {
     @Override
     public void tick() {
         super.tick();
-    }
-
-    // TODO: remove temp
-    @Override
-    public BlockPos getController() {
-        return this.controller;
     }
 }
