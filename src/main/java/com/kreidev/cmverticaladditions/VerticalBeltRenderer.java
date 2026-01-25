@@ -22,7 +22,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Supplier;
 
+import static com.kreidev.cmverticaladditions.VerticalAdditions.resLoc;
+
 public class VerticalBeltRenderer extends BeltRenderer {
+
+    public static final PartialModel BELT_VERTICAL_START = PartialModel.of(resLoc("block/vertical_start"));
+    public static final PartialModel BELT_VERTICAL_START_OFFSET = PartialModel.of(resLoc("block/vertical_start_offset"));
+
     public VerticalBeltRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
@@ -32,20 +38,15 @@ public class VerticalBeltRenderer extends BeltRenderer {
         // TODO: figure out flywheel so I don't have to do cpu rendering
 
         BlockState blockState = be.getBlockState();
-        if (!(blockState.getBlock() instanceof BeltBlock))
-            return;
+        if (!(blockState.getBlock() instanceof VerticalBeltBlock)) return;
+        if (blockState.getValue(BeltBlock.SLOPE) != BeltSlope.VERTICAL) return;
 
-        BeltSlope beltSlope = blockState.getValue(BeltBlock.SLOPE);
         BeltPart part = blockState.getValue(BeltBlock.PART);
         Direction facing = blockState.getValue(BeltBlock.HORIZONTAL_FACING);
         Direction.AxisDirection axisDirection = facing.getAxisDirection();
 
-        boolean downward = beltSlope == BeltSlope.DOWNWARD;
-        boolean upward = beltSlope == BeltSlope.UPWARD;
-        boolean diagonal = downward || upward;
         boolean start = part == BeltPart.START;
         boolean end = part == BeltPart.END;
-        boolean sideways = beltSlope == BeltSlope.SIDEWAYS;
         boolean alongX = facing.getAxis() == Direction.Axis.X;
 
         PoseStack localTransforms = new PoseStack();
@@ -53,45 +54,53 @@ public class VerticalBeltRenderer extends BeltRenderer {
         VertexConsumer vb = buffer.getBuffer(RenderType.solid());
         float renderTick = AnimationTickHolder.getRenderTime(be.getLevel());
 
-        msr.center()
-                .rotateYDegrees(AngleHelper.horizontalAngle(facing) + (upward ? 180 : 0) + (sideways ? 270 : 0))
-                .rotateZDegrees(sideways ? 90 : 0)
-                .rotateXDegrees(!diagonal && beltSlope != BeltSlope.HORIZONTAL ? 90 : 0)
-                .uncenter();
-
-        if (downward || beltSlope == BeltSlope.VERTICAL && axisDirection == Direction.AxisDirection.POSITIVE) {
-            boolean b = start;
-            start = end;
-            end = b;
+        if (part == BeltPart.START) {
+            msr.center()
+                    .rotateYDegrees(AngleHelper.horizontalAngle(facing) + 180)
+                    .uncenter();
+        } else if (part == BeltPart.END) {
+            msr.center()
+                    .rotateZDegrees(180)
+                    .rotateYDegrees(AngleHelper.horizontalAngle(facing))
+                    .uncenter();
+        } else {
+            msr.center()
+                    .rotateYDegrees(AngleHelper.horizontalAngle(facing))
+                    .rotateXDegrees(90)
+                    .uncenter();
         }
 
         DyeColor color = be.color.orElse(null);
 
         for (boolean bottom : Iterate.trueAndFalse) {
+            PartialModel beltPartial = getBeltPartial(false, start, end, bottom);
 
-            PartialModel beltPartial = getBeltPartial(diagonal, start, end, bottom);
+            if (part == BeltPart.START || part == BeltPart.END) {
+                beltPartial = bottom ? BELT_VERTICAL_START_OFFSET : BELT_VERTICAL_START;
+            }
 
             SuperByteBuffer beltBuffer = CachedBuffers.partial(beltPartial, blockState)
                     .light(light);
 
-            SpriteShiftEntry spriteShift = getSpriteShiftEntry(color, diagonal, bottom);
+            SpriteShiftEntry spriteShift = getSpriteShiftEntry(color, false, bottom);
 
             // UV shift
             float speed = be.getSpeed();
             if (speed != 0 || be.color.isPresent()) {
                 float time = renderTick * axisDirection.getStep();
-                if (diagonal && (downward ^ alongX) || !sideways && !diagonal && alongX
-                        || sideways && axisDirection == Direction.AxisDirection.NEGATIVE)
+                if (alongX) {
                     speed = -speed;
+                }
 
-                float scrollMult = diagonal ? 3f / 8f : 0.5f;
+                float scrollMult = 0.5f;
 
                 float spriteSize = spriteShift.getTarget()
                         .getV1()
                         - spriteShift.getTarget()
                         .getV0();
 
-                double scroll = speed * time / (31.5 * 16) + (bottom ? 0.5 : 0.0);
+                boolean shouldOffset = bottom ^ part == BeltPart.END;
+                double scroll = speed * time / (31.5 * 16) + (shouldOffset ? 0.5 : 0.0) + (part == BeltPart.START || part == BeltPart.END ? 0 : 1/8f);
                 scroll = scroll - Math.floor(scroll);
                 scroll = scroll * spriteSize * scrollMult;
 
@@ -101,16 +110,10 @@ public class VerticalBeltRenderer extends BeltRenderer {
             beltBuffer
                     .transform(localTransforms)
                     .renderInto(ms, vb);
-
-            // Diagonal belt do not have a separate bottom model
-            if (diagonal)
-                break;
         }
 
         if (be.hasPulley()) {
-            Direction dir = sideways ? Direction.UP
-                    : blockState.getValue(BeltBlock.HORIZONTAL_FACING)
-                    .getClockWise();
+            Direction dir = blockState.getValue(BeltBlock.HORIZONTAL_FACING).getClockWise();
 
             Supplier<PoseStack> matrixStackSupplier = () -> {
                 PoseStack stack = new PoseStack();
@@ -131,4 +134,6 @@ public class VerticalBeltRenderer extends BeltRenderer {
 
         renderItems(be, partialTicks, ms, buffer, light, overlay);
     }
+
+    public static void init() {}
 }

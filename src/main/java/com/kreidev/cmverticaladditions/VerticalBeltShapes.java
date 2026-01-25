@@ -89,7 +89,7 @@ public class VerticalBeltShapes {
         return Shapes.or(
                 box(1,4,0,15,12,12),
                 box(1,3,1,15,13,12),
-                box(1,12,3,15,16,13)
+                box(1,4,3,15,16,13)
         );
     }
 
@@ -97,7 +97,7 @@ public class VerticalBeltShapes {
         return Shapes.or(
                 box(1,4,4,15,12,16),
                 box(1,3,4,15,13,15),
-                box(1,0,3,15,4,13)
+                box(1,0,3,15,12,13)
         );
     }
 }

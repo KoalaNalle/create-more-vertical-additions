@@ -1,0 +1,72 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"1": "create:block/belt_offset",
+		"particle": "create:block/belt"
+	},
+	"elements": [
+		{
+			"name": "Front",
+			"from": [1, 4, 14.05],
+			"to": [15, 12, 16.05],
+			"faces": {
+				"north": {"uv": [1, 8, 15, 16], "texture": "#1"},
+				"east": {"uv": [14, 8, 16, 16], "texture": "#1"},
+				"south": {"uv": [1, 8, 15, 16], "texture": "#1"},
+				"west": {"uv": [0, 8, 2, 16], "texture": "#1"},
+				"up": {"uv": [1, 7, 15, 8], "texture": "#1"},
+				"down": {"uv": [1, 0, 15, 1], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Bottom",
+			"from": [0.9, 3, 3.9],
+			"to": [15.1, 5, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, -1]},
+			"faces": {
+				"north": {"uv": [1, 14, 15, 12], "texture": "#1"},
+				"east": {"uv": [14, 1, 16, 12], "rotation": 270, "texture": "#1"},
+				"south": {"uv": [1, 0, 15, 1], "texture": "#1"},
+				"west": {"uv": [0, 1, 2, 12], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [1, 1, 15, 12], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [1, 1, 15, 12], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Bottom Inner",
+			"from": [2.9, 5, 4.9],
+			"to": [13.1, 6, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, -1]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 0], "texture": "#1"},
+				"east": {"uv": [3, 1, 4, 10], "rotation": 270, "texture": "#1"},
+				"south": {"uv": [0, 0, 0, 0], "texture": "#1"},
+				"west": {"uv": [12, 1, 13, 10], "rotation": 90, "texture": "#1"},
+				"up": {"uv": [3, 1, 13, 10], "rotation": 180, "texture": "#1"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#1"}
+			}
+		},
+		{
+			"name": "Back Top",
+			"from": [1, 10, 3],
+			"to": [15, 16, 5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 6, 8]},
+			"faces": {
+				"north": {"uv": [1, 4, 15, 10], "rotation": 180, "texture": "#1"},
+				"east": {"uv": [14, 4, 16, 10], "rotation": 180, "texture": "#1"},
+				"south": {"uv": [1, 4, 15, 10], "rotation": 180, "texture": "#1"},
+				"west": {"uv": [0, 4, 2, 10], "rotation": 180, "texture": "#1"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "offset",
+			"origin": [8, 10, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

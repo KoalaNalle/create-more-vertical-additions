@@ -94,6 +94,7 @@ public class VerticalAdditions {
                 VERTICAL_BELT_BLOCK_ENTITY.get(),
                 VerticalBeltRenderer::new
         );
+        VerticalBeltRenderer.init();
     }
 
     public static void serverTick(ServerTickEvent.Pre event) {
@@ -107,17 +108,18 @@ public class VerticalAdditions {
                 && level.getBlockState(hit.getBlockPos()).getBlock() instanceof BeltBlock) {
             BlockPos pos = hit.getBlockPos();
             BeltBlockEntity controller = BeltHelper.getControllerBE(level, pos);
+            IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
 
             VerticalAdditions.LOGGER.debug("pos: " + pos);
 
             if (!(BeltHelper.getSegmentBE(level, pos) instanceof BeltBlockEntity be)) return;
 
-            VerticalAdditions.LOGGER.debug("segment: " + be);
+//            VerticalAdditions.LOGGER.debug("segment: " + be);
 
-            VerticalAdditions.LOGGER.debug("be length: " + be.beltLength);
+//            VerticalAdditions.LOGGER.debug("pulley: " + be.hasPulley());
 
 
-            VerticalAdditions.LOGGER.debug("controller: " + controller);
+//            VerticalAdditions.LOGGER.debug("controller: " + controller);
 
 //            VerticalAdditions.LOGGER.debug("segment: " + be.getController());
 
@@ -125,24 +127,7 @@ public class VerticalAdditions {
 
 //            VerticalAdditions.LOGGER.debug("length: " + controller.beltLength);
 
-            IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
-
-//            BeltInventory inventory = controller.getInventory();
-
-//            if (inventory != null) {
-//                VerticalAdditions.LOGGER.debug("has inventory");
-//            }
-
-            VerticalAdditions.LOGGER.debug("handler: " + handler);
-
-            if (handler != null) {
-                VerticalAdditions.LOGGER.debug("has handler");
-            }
-
-
-//            VoxelShape shape = level.getBlockState(pos).getShape(level, pos);
-//            BeltBlockEntity controller = BeltHelper.getControllerBE(level, pos);
-//            Outliner.getInstance().showAABB("test belt", shape.bounds());
+//            VerticalAdditions.LOGGER.debug("handler: " + handler);
         }
     }
 
