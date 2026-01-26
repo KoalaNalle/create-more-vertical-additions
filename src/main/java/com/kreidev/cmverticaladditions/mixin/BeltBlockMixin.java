@@ -22,9 +22,7 @@ public class BeltBlockMixin {
 
     @Inject(method = "canTransportObjects", at = @At(value = "HEAD"), cancellable = true)
     private static void canTransportObjects(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if (!AllBlocks.BELT.has(state)) return;
-
-        if (state.getBlock() instanceof VerticalBeltBlock && state.getValue(SLOPE) == BeltSlope.VERTICAL) {
+        if (state.getBlock() instanceof VerticalBeltBlock) {
             cir.setReturnValue(true);
             cir.cancel();
         }
