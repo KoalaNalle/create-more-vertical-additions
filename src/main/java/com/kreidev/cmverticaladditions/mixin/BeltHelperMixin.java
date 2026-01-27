@@ -40,14 +40,19 @@ public class BeltHelperMixin {
     @Inject(method = "getVectorForOffset", at = @At(value = "HEAD"), cancellable = true)
     private static void getVectorForOffset(BeltBlockEntity controller, float offset, CallbackInfoReturnable<Vec3> cir) {
         if (controller instanceof VerticalBeltBlockEntity) {
-            if (offset >= controller.beltLength) {
-                offset--;  // TODO: Not sure if safe, need to add a check if invoked from BeltInventory.eject
-            }
-            // TODO: ejection motion doesn't seem to match with horizontal belts
-
+            Direction facing = controller.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
             Vec3 vec = VecHelper.getCenterOf(controller.getBlockPos());
-            vec = vec.add(0,offset,0);
-            vec = vec.add(Vec3.atLowerCornerOf(controller.getMovementFacing().getNormal()).scale(0.5));
+
+            if (offset < 0.5) {
+                vec = vec.add(Vec3.atLowerCornerOf(facing.getNormal()).scale(offset-0.5));
+            } else if (offset < controller.beltLength - 0.5f){
+                offset -= 0.5f;
+                vec = vec.add(0,offset,0);
+            } else {
+                offset -= controller.beltLength - 0.5f;
+                vec = vec.add(0,controller.beltLength-1,0);
+                vec = vec.add(Vec3.atLowerCornerOf(facing.getNormal()).scale(offset));
+            }
 
             cir.setReturnValue(vec);
             cir.cancel();
