@@ -53,7 +53,7 @@ public class VerticalBeltRenderer extends BeltRenderer {
 
     @Override
     protected void renderSafe(BeltBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        // TODO: figure out flywheel so I don't have to do cpu rendering
+        // TODO: figure out flywheel
 
         BlockState blockState = be.getBlockState();
         if (!(blockState.getBlock() instanceof VerticalBeltBlock)) return;
@@ -189,10 +189,6 @@ public class VerticalBeltRenderer extends BeltRenderer {
     private void renderItem(BeltBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light,
                             int overlay, Direction beltFacing, Vec3i directionVec, BeltSlope slope, int verticality, boolean slopeAlongX,
                             boolean onContraption, TransportedItemStack transported, Vec3 beltStartOffset) {
-
-//        if (be instanceof VerticalBeltBlockEntity) {
-//            VerticalAdditions.LOGGER.debug("verticality: {}", verticality);
-//        }
 
         Minecraft mc = Minecraft.getInstance();
         ItemRenderer itemRenderer = mc.getItemRenderer();

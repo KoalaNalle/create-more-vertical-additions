@@ -78,7 +78,7 @@ public class VerticalBeltConnectorItem extends BlockItem {
                 return InteractionResult.FAIL;
 
             if (firstPulley != null && !firstPulley.equals(pos)) {
-                createVerticalBelts(world, firstPulley, pos);
+                createVerticalBelts(world, firstPulley, pos, playerEntity);
                 AllAdvancements.BELT.awardTo(playerEntity);
                 if (!playerEntity.isCreative())
                     context.getItemInHand()
@@ -143,19 +143,25 @@ public class VerticalBeltConnectorItem extends BlockItem {
 
     }
 
-    public static void createVerticalBelts(Level world, BlockPos start, BlockPos end) {
+    // TODO: mixin LaunchedItem.ForBelt.place() to be able to use this
+    public static void createVerticalBelts(Level world, BlockPos start, BlockPos end, Player player) {
         world.playSound(null, BlockPos.containing(VecHelper.getCenterOf(start.offset(end))
                 .scale(.5f)), SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 0.5F, 1F);
 
+        if (start.getY() > end.getY()) {
+            BlockPos temp = start;
+            start = end;
+            end = temp;
+        }
+
         BeltSlope slope = BeltSlope.VERTICAL;
-        Direction facing = getFacingFromTo(start, end);
+        Direction facing = switch (world.getBlockState(start).getValue(BlockStateProperties.AXIS)) {
+            case X -> (player.getYHeadRot()+270)%360 > 180 ? Direction.SOUTH : Direction.NORTH;
+            case Z -> (player.getYHeadRot()+360)%360 > 180 ? Direction.EAST : Direction.WEST;
+            default -> Direction.SOUTH;  // some random default
+        };
 
-        BlockPos diff = end.subtract(start);
-        if (diff.getX() == diff.getZ())
-            facing = Direction.get(facing.getAxisDirection(), world.getBlockState(start)
-                    .getValue(BlockStateProperties.AXIS) == Direction.Axis.X ? Direction.Axis.Z : Direction.Axis.X);
-
-        List<BlockPos> beltsToCreate = getVerticalBeltChainBetween(start, end, facing);
+        List<BlockPos> beltsToCreate = getVerticalBeltChainBetween(start, end);
         BlockState beltBlock = VerticalAdditions.VERTICAL_BELT_BLOCK.getDefaultState();
         boolean failed = false;
 
@@ -171,8 +177,6 @@ public class VerticalBeltConnectorItem extends BlockItem {
             boolean pulley = ShaftBlock.isShaft(shaftState);
             if (part == BeltPart.MIDDLE && pulley)
                 part = BeltPart.PULLEY;
-            if (pulley && shaftState.getValue(AbstractSimpleShaftBlock.AXIS) == Direction.Axis.Y)
-                slope = BeltSlope.SIDEWAYS;
 
             if (!existingBlock.canBeReplaced())
                 world.destroyBlock(pos, false);
@@ -199,28 +203,15 @@ public class VerticalBeltConnectorItem extends BlockItem {
         return world.getBlockState(pos).getValue(BlockStateProperties.AXIS) != Direction.Axis.Y;
     }
 
-    private static Direction getFacingFromTo(BlockPos start, BlockPos end) {
-        Direction.Axis beltAxis = start.getX() == end.getX() ? Direction.Axis.Z : Direction.Axis.X;
-        BlockPos diff = end.subtract(start);
-        Direction.AxisDirection axisDirection;
-
-        if (diff.getX() == 0 && diff.getZ() == 0)
-            axisDirection = diff.getY() > 0 ? Direction.AxisDirection.POSITIVE : Direction.AxisDirection.NEGATIVE;
-        else
-            axisDirection =
-                    beltAxis.choose(diff.getX(), 0, diff.getZ()) > 0 ? Direction.AxisDirection.POSITIVE : Direction.AxisDirection.NEGATIVE;
-
-        return Direction.get(axisDirection, beltAxis);
-    }
-
-    public static List<BlockPos> getVerticalBeltChainBetween(BlockPos start, BlockPos end, Direction direction) {
+    // Assuming start is at the bottom
+    private static List<BlockPos> getVerticalBeltChainBetween(BlockPos start, BlockPos end) {
         List<BlockPos> positions = new LinkedList<>();
         int limit = 1000;
         BlockPos current = start;
 
         do {
             positions.add(current);
-            current = current.above(direction.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 1 : -1);
+            current = current.above();
         } while (!current.equals(end) && limit-- > 0);
 
         positions.add(end);

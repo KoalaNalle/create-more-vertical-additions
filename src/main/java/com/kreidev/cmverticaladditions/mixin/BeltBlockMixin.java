@@ -4,18 +4,16 @@ import com.kreidev.cmverticaladditions.VerticalAdditions;
 import com.kreidev.cmverticaladditions.VerticalBeltBlock;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.kinetics.belt.BeltBlock;
-import com.simibubi.create.content.kinetics.belt.BeltSlope;
+import com.simibubi.create.content.kinetics.belt.BeltPart;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import static com.simibubi.create.content.kinetics.belt.BeltBlock.SLOPE;
 
 @Mixin(value = BeltBlock.class, remap = false)
 public class BeltBlockMixin {
@@ -62,5 +60,18 @@ public class BeltBlockMixin {
     private static boolean getBeltChainHas(BlockEntry<Block> instance, BlockState state, Operation<Boolean> original) {
         VerticalAdditions.LOGGER.debug("getBeltChain: " + state);
         return original.call(instance, state) || state.getBlock() instanceof BeltBlock;
+    }
+
+    @Inject(method = "nextSegmentPosition", at = @At(value = "HEAD"), cancellable = true)
+    private static void nextSegmentPosition(BlockState state, BlockPos pos, boolean forward, CallbackInfoReturnable<BlockPos> cir) {
+        if (state.getBlock() instanceof VerticalBeltBlock) {
+            BeltPart part = state.getValue(BeltBlock.PART);
+            if (part == BeltPart.END && forward || part == BeltPart.START && !forward) {
+                cir.setReturnValue(null);
+            } else {
+                cir.setReturnValue(pos.above(forward ? 1 : -1));
+            }
+            cir.cancel();
+        }
     }
 }
