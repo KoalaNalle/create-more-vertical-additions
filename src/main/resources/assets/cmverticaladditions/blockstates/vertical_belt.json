@@ -681,12 +681,12 @@
       "y": 90
     },
     "casing=true,facing=east,part=end,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_end",
-      "x": 90
+      "model": "cmverticaladditions:block/vertical_casing_end",
+      "y": 90
     },
     "casing=true,facing=east,part=end,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_end",
-      "x": 90
+      "model": "cmverticaladditions:block/vertical_casing_end",
+      "y": 90
     },
     "casing=true,facing=east,part=middle,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_middle",
@@ -721,12 +721,12 @@
       "y": 90
     },
     "casing=true,facing=east,part=middle,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_middle",
-      "x": 90
+      "model": "cmverticaladditions:block/vertical_casing_middle",
+      "y": 90
     },
     "casing=true,facing=east,part=middle,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_middle",
-      "x": 90
+      "model": "cmverticaladditions:block/vertical_casing_middle",
+      "y": 90
     },
     "casing=true,facing=east,part=pulley,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_pulley",
@@ -761,12 +761,12 @@
       "y": 90
     },
     "casing=true,facing=east,part=pulley,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_pulley",
-      "x": 90
+      "model": "cmverticaladditions:block/vertical_casing_pulley",
+      "y": 90
     },
     "casing=true,facing=east,part=pulley,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_pulley",
-      "x": 90
+      "model": "cmverticaladditions:block/vertical_casing_pulley",
+      "y": 90
     },
     "casing=true,facing=east,part=start,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_end",
@@ -801,12 +801,12 @@
       "y": 90
     },
     "casing=true,facing=east,part=start,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_start",
-      "x": 90
+      "model": "cmverticaladditions:block/vertical_casing_start",
+      "y": 90
     },
     "casing=true,facing=east,part=start,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_start",
-      "x": 90
+      "model": "cmverticaladditions:block/vertical_casing_start",
+      "y": 90
     },
     "casing=true,facing=north,part=end,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_start",
@@ -841,14 +841,10 @@
       "model": "create:block/belt_casing/diagonal_end"
     },
     "casing=true,facing=north,part=end,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_start",
-      "x": 90,
-      "y": 270
+      "model": "cmverticaladditions:block/vertical_casing_end"
     },
     "casing=true,facing=north,part=end,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_start",
-      "x": 90,
-      "y": 270
+      "model": "cmverticaladditions:block/vertical_casing_end"
     },
     "casing=true,facing=north,part=middle,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_middle",
@@ -883,14 +879,10 @@
       "model": "create:block/belt_casing/diagonal_middle"
     },
     "casing=true,facing=north,part=middle,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_middle",
-      "x": 90,
-      "y": 270
+      "model": "cmverticaladditions:block/vertical_casing_middle"
     },
     "casing=true,facing=north,part=middle,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_middle",
-      "x": 90,
-      "y": 270
+      "model": "cmverticaladditions:block/vertical_casing_middle"
     },
     "casing=true,facing=north,part=pulley,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_pulley",
@@ -925,14 +917,10 @@
       "model": "create:block/belt_casing/diagonal_pulley"
     },
     "casing=true,facing=north,part=pulley,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_pulley",
-      "x": 90,
-      "y": 270
+      "model": "cmverticaladditions:block/vertical_casing_pulley"
     },
     "casing=true,facing=north,part=pulley,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_pulley",
-      "x": 90,
-      "y": 270
+      "model": "cmverticaladditions:block/vertical_casing_pulley"
     },
     "casing=true,facing=north,part=start,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_end",
@@ -967,14 +955,10 @@
       "model": "create:block/belt_casing/diagonal_start"
     },
     "casing=true,facing=north,part=start,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_end",
-      "x": 90,
-      "y": 270
+      "model": "cmverticaladditions:block/vertical_casing_start"
     },
     "casing=true,facing=north,part=start,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_end",
-      "x": 90,
-      "y": 270
+      "model": "cmverticaladditions:block/vertical_casing_start"
     },
     "casing=true,facing=south,part=end,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_start"
@@ -1003,14 +987,12 @@
       "y": 180
     },
     "casing=true,facing=south,part=end,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_end",
-      "x": 90,
-      "y": 90
+      "model": "cmverticaladditions:block/vertical_casing_end",
+      "y": 180
     },
     "casing=true,facing=south,part=end,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_end",
-      "x": 90,
-      "y": 90
+      "model": "cmverticaladditions:block/vertical_casing_end",
+      "y": 180
     },
     "casing=true,facing=south,part=middle,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_middle"
@@ -1039,14 +1021,12 @@
       "y": 180
     },
     "casing=true,facing=south,part=middle,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_middle",
-      "x": 90,
-      "y": 90
+      "model": "cmverticaladditions:block/vertical_casing_middle",
+      "y": 180
     },
     "casing=true,facing=south,part=middle,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_middle",
-      "x": 90,
-      "y": 90
+      "model": "cmverticaladditions:block/vertical_casing_middle",
+      "y": 180
     },
     "casing=true,facing=south,part=pulley,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_pulley"
@@ -1075,14 +1055,12 @@
       "y": 180
     },
     "casing=true,facing=south,part=pulley,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_pulley",
-      "x": 90,
-      "y": 90
+      "model": "cmverticaladditions:block/vertical_casing_pulley",
+      "y": 180
     },
     "casing=true,facing=south,part=pulley,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_pulley",
-      "x": 90,
-      "y": 90
+      "model": "cmverticaladditions:block/vertical_casing_pulley",
+      "y": 180
     },
     "casing=true,facing=south,part=start,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_end"
@@ -1111,14 +1089,12 @@
       "y": 180
     },
     "casing=true,facing=south,part=start,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_start",
-      "x": 90,
-      "y": 90
+      "model": "cmverticaladditions:block/vertical_casing_start",
+      "y": 180
     },
     "casing=true,facing=south,part=start,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_start",
-      "x": 90,
-      "y": 90
+      "model": "cmverticaladditions:block/vertical_casing_start",
+      "y": 180
     },
     "casing=true,facing=west,part=end,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_start",
@@ -1155,14 +1131,12 @@
       "y": 270
     },
     "casing=true,facing=west,part=end,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_start",
-      "x": 90,
-      "y": 180
+      "model": "cmverticaladditions:block/vertical_casing_end",
+      "y": 270
     },
     "casing=true,facing=west,part=end,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_start",
-      "x": 90,
-      "y": 180
+      "model": "cmverticaladditions:block/vertical_casing_end",
+      "y": 270
     },
     "casing=true,facing=west,part=middle,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_middle",
@@ -1199,14 +1173,12 @@
       "y": 270
     },
     "casing=true,facing=west,part=middle,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_middle",
-      "x": 90,
-      "y": 180
+      "model": "cmverticaladditions:block/vertical_casing_middle",
+      "y": 270
     },
     "casing=true,facing=west,part=middle,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_middle",
-      "x": 90,
-      "y": 180
+      "model": "cmverticaladditions:block/vertical_casing_middle",
+      "y": 270
     },
     "casing=true,facing=west,part=pulley,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_pulley",
@@ -1243,14 +1215,12 @@
       "y": 270
     },
     "casing=true,facing=west,part=pulley,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_pulley",
-      "x": 90,
-      "y": 180
+      "model": "cmverticaladditions:block/vertical_casing_pulley",
+      "y": 270
     },
     "casing=true,facing=west,part=pulley,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_pulley",
-      "x": 90,
-      "y": 180
+      "model": "cmverticaladditions:block/vertical_casing_pulley",
+      "y": 270
     },
     "casing=true,facing=west,part=start,slope=downward,waterlogged=false": {
       "model": "create:block/belt_casing/diagonal_end",
@@ -1287,14 +1257,12 @@
       "y": 270
     },
     "casing=true,facing=west,part=start,slope=vertical,waterlogged=false": {
-      "model": "create:block/belt_casing/sideways_end",
-      "x": 90,
-      "y": 180
+      "model": "cmverticaladditions:block/vertical_casing_start",
+      "y": 270
     },
     "casing=true,facing=west,part=start,slope=vertical,waterlogged=true": {
-      "model": "create:block/belt_casing/sideways_end",
-      "x": 90,
-      "y": 180
+      "model": "cmverticaladditions:block/vertical_casing_start",
+      "y": 270
     }
   }
 }
