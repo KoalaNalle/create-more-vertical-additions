@@ -16,7 +16,6 @@ import java.util.Map;
 
 import static net.minecraft.world.level.block.Block.box;
 
-// TODO: replace with own implementation
 public class VerticalBeltShapes {
 
     private static final VoxelShaper

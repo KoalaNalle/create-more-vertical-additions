@@ -1,33 +1,19 @@
 package com.kreidev.cmverticaladditions;
 
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.AllDisplaySources;
 import com.simibubi.create.content.kinetics.belt.*;
-import com.simibubi.create.content.kinetics.belt.item.BeltConnectorItem;
-import com.simibubi.create.content.kinetics.belt.transport.BeltInventory;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.infrastructure.config.CStress;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
-import net.createmod.catnip.outliner.Outliner;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.items.IItemHandler;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -60,7 +46,7 @@ public class VerticalAdditions {
             .transform(axeOrPickaxe())
             .blockstate(new BeltGenerator()::generate)
             .transform(displaySource(AllDisplaySources.ITEM_NAMES))
-            .onRegister(CreateRegistrate.blockModel(() -> BeltModel::new))
+            .onRegister(CreateRegistrate.blockModel(() -> VerticalBeltModel::new))
             .clientExtension(() -> BeltBlock.RenderProperties::new)
             .register();
 
@@ -78,14 +64,12 @@ public class VerticalAdditions {
 
 
     public VerticalAdditions(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(VerticalAdditions::clientInit);
-        modEventBus.addListener(CommonConfig::onLoad);
-        modEventBus.addListener(CommonConfig::onReload);
+        modEventBus.addListener(ClientConfig::onLoad);
+        modEventBus.addListener(ClientConfig::onReload);
         modEventBus.addListener(VerticalBeltBlockEntity::registerCapabilities);
-
-        NeoForge.EVENT_BUS.addListener(VerticalAdditions::serverTick);
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
@@ -95,40 +79,6 @@ public class VerticalAdditions {
                 VerticalBeltRenderer::new
         );
         VerticalBeltRenderer.init();
-    }
-
-    public static void serverTick(ServerTickEvent.Pre event) {
-        ServerPlayer player = event.getServer().getPlayerList().getPlayerByName("Dev");
-        if (player == null) return;
-
-        Level level = player.level();
-        if (level.getGameTime()%10!=0) return;
-
-        if (player.pick(player.blockInteractionRange(), 0.0F, false) instanceof BlockHitResult hit
-                && level.getBlockState(hit.getBlockPos()).getBlock() instanceof BeltBlock) {
-            BlockPos pos = hit.getBlockPos();
-            BeltBlockEntity controller = BeltHelper.getControllerBE(level, pos);
-            IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
-
-            VerticalAdditions.LOGGER.debug("pos: " + pos);
-
-            if (!(BeltHelper.getSegmentBE(level, pos) instanceof BeltBlockEntity be)) return;
-
-//            VerticalAdditions.LOGGER.debug("segment: " + be);
-
-//            VerticalAdditions.LOGGER.debug("pulley: " + be.hasPulley());
-
-
-//            VerticalAdditions.LOGGER.debug("controller: " + controller);
-
-//            VerticalAdditions.LOGGER.debug("segment: " + be.getController());
-
-//            VerticalAdditions.LOGGER.debug("controller pos: " + controller.getBlockPos());
-
-//            VerticalAdditions.LOGGER.debug("length: " + controller.beltLength);
-
-//            VerticalAdditions.LOGGER.debug("handler: " + handler);
-        }
     }
 
 

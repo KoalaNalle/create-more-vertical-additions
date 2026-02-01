@@ -76,7 +76,6 @@ public class VerticalBeltRenderer extends BeltRenderer {
     @Override
     protected void renderSafe(BeltBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         // TODO: figure out flywheel
-        // TODO: andesite casing
 
         BlockState blockState = be.getBlockState();
         if (!(blockState.getBlock() instanceof VerticalBeltBlock)) return;
