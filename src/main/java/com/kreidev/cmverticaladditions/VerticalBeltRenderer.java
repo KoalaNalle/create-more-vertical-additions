@@ -18,6 +18,7 @@ import net.createmod.catnip.levelWrappers.WrappedLevel;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.render.CachedBuffers;
 import net.createmod.catnip.render.SpriteShiftEntry;
+import net.createmod.catnip.render.SpriteShifter;
 import net.createmod.catnip.render.SuperByteBuffer;
 import net.createmod.ponder.api.level.PonderLevel;
 import net.minecraft.client.Minecraft;
@@ -37,6 +38,8 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.function.Supplier;
 
@@ -44,8 +47,27 @@ import static com.kreidev.cmverticaladditions.VerticalAdditions.resLoc;
 
 public class VerticalBeltRenderer extends BeltRenderer {
 
+    public static final PartialModel STICKY_BELT_VERTICAL_START = PartialModel.of(resLoc("block/sticky_vertical_start"));
+    public static final PartialModel STICKY_BELT_VERTICAL_START_OFFSET = PartialModel.of(resLoc("block/sticky_vertical_start_offset"));
+    public static final PartialModel STICKY_BELT_MIDDLE = PartialModel.of(resLoc("block/sticky_middle"));
+    public static final PartialModel STICKY_BELT_MIDDLE_OFFSET = PartialModel.of(resLoc("block/sticky_middle_bottom"));
+
     public static final PartialModel BELT_VERTICAL_START = PartialModel.of(resLoc("block/vertical_start"));
     public static final PartialModel BELT_VERTICAL_START_OFFSET = PartialModel.of(resLoc("block/vertical_start_offset"));
+
+    public static final SpriteShiftEntry STICKY_BELT = SpriteShifter.get(resLoc("block/sticky_belt"), resLoc("block/sticky_belt_scroll"));
+    public static final SpriteShiftEntry STICKY_BELT_OFFSET = SpriteShifter.get(resLoc("block/sticky_belt_offset"), resLoc("block/sticky_belt_scroll"));
+
+    public static final Map<DyeColor, SpriteShiftEntry> STICKY_DYED_BELTS = new EnumMap<>(DyeColor.class);
+    public static final Map<DyeColor, SpriteShiftEntry> STICKY_DYED_OFFSET_BELTS = new EnumMap<>(DyeColor.class);
+
+    static {
+        for (DyeColor color : DyeColor.values()) {
+            String id = color.getSerializedName();
+            STICKY_DYED_BELTS.put(color, SpriteShifter.get(resLoc("block/sticky_belt"), resLoc("block/sticky_belt/" + id + "_scroll")));
+            STICKY_DYED_OFFSET_BELTS.put(color,SpriteShifter.get(resLoc("block/sticky_belt_offset"), resLoc("block/sticky_belt/" + id + "_scroll")));
+        }
+    }
 
     public VerticalBeltRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
@@ -54,6 +76,7 @@ public class VerticalBeltRenderer extends BeltRenderer {
     @Override
     protected void renderSafe(BeltBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         // TODO: figure out flywheel
+        // TODO: andesite casing
 
         BlockState blockState = be.getBlockState();
         if (!(blockState.getBlock() instanceof VerticalBeltBlock)) return;
@@ -91,16 +114,12 @@ public class VerticalBeltRenderer extends BeltRenderer {
         DyeColor color = be.color.orElse(null);
 
         for (boolean bottom : Iterate.trueAndFalse) {
-            PartialModel beltPartial = getBeltPartial(false, start, end, bottom);
-
-            if (part == BeltPart.START || part == BeltPart.END) {
-                beltPartial = bottom ? BELT_VERTICAL_START_OFFSET : BELT_VERTICAL_START;
-            }
+            PartialModel beltPartial = getVerticalBeltPartial( start, end, bottom, false);
 
             SuperByteBuffer beltBuffer = CachedBuffers.partial(beltPartial, blockState)
                     .light(light);
 
-            SpriteShiftEntry spriteShift = getSpriteShiftEntry(color, false, bottom);
+            SpriteShiftEntry spriteShift = getVerticalSpriteShiftEntry(color, bottom, false);
 
             // UV shift
             float speed = be.getSpeed();
@@ -217,8 +236,6 @@ public class VerticalBeltRenderer extends BeltRenderer {
             offsetVec = offsetVec.add(Vec3.atLowerCornerOf(beltFacing.getNormal()).scale(offset-endClimb));
         }
 
-//        VerticalAdditions.LOGGER.debug(""+offsetVec);
-
         Vec3 itemPos = beltStartOffset.add(
                         be.getBlockPos().getX(),
                         be.getBlockPos().getY(),
@@ -321,6 +338,35 @@ public class VerticalBeltRenderer extends BeltRenderer {
         }
 
         ms.popPose();
+    }
+
+
+    public static PartialModel getVerticalBeltPartial(boolean start, boolean end, boolean bottom, boolean sticky) {
+        if (sticky) {
+            if (start || end) {
+                return bottom ? STICKY_BELT_VERTICAL_START_OFFSET : STICKY_BELT_VERTICAL_START;
+            } else {
+                return bottom ? STICKY_BELT_MIDDLE_OFFSET : STICKY_BELT_MIDDLE;
+            }
+        } else {
+            if (start || end) {
+                return bottom ? BELT_VERTICAL_START_OFFSET : BELT_VERTICAL_START;
+            } else {
+                return bottom ? AllPartialModels.BELT_MIDDLE_BOTTOM : AllPartialModels.BELT_MIDDLE;
+            }
+        }
+    }
+
+    public static SpriteShiftEntry getVerticalSpriteShiftEntry(DyeColor color, boolean bottom, boolean sticky) {
+        if (sticky) {
+            if (color != null) {
+                return (bottom ? STICKY_DYED_OFFSET_BELTS : STICKY_DYED_BELTS).get(color);
+            } else {
+                return bottom ? STICKY_BELT_OFFSET : STICKY_BELT;
+            }
+        } else {
+            return getSpriteShiftEntry(color, false, bottom);
+        }
     }
 
     public static void init() {}
