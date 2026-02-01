@@ -113,12 +113,12 @@ public class VerticalBeltRenderer extends BeltRenderer {
         DyeColor color = be.color.orElse(null);
 
         for (boolean bottom : Iterate.trueAndFalse) {
-            PartialModel beltPartial = getVerticalBeltPartial( start, end, bottom, false);
+            PartialModel beltPartial = getVerticalBeltPartial( start, end, bottom, ClientConfig.stickyTextures);
 
             SuperByteBuffer beltBuffer = CachedBuffers.partial(beltPartial, blockState)
                     .light(light);
 
-            SpriteShiftEntry spriteShift = getVerticalSpriteShiftEntry(color, bottom, false);
+            SpriteShiftEntry spriteShift = getVerticalSpriteShiftEntry(color, bottom, ClientConfig.stickyTextures);
 
             // UV shift
             float speed = be.getSpeed();

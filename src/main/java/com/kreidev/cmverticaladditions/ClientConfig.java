@@ -3,16 +3,23 @@ package com.kreidev.cmverticaladditions;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
+@SuppressWarnings("unused")
 public class ClientConfig {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
+    private static final ModConfigSpec.BooleanValue STICKY_TEXTURES = BUILDER
+            .comment("Use the sticky belt textures on vertical belts")
+            .define("stickyTextures", true);
+
     static final ModConfigSpec SPEC = BUILDER.build();
 
-    private static void updateConfigs() {
+    public static boolean stickyTextures;
 
+    private static void updateConfigs() {
+        stickyTextures = STICKY_TEXTURES.get();
     }
 
-    static void onLoad(final ModConfigEvent.Loading event) {
+    static void onLoad(final ModConfigEvent.Loading unused) {
         updateConfigs();
     }
 
