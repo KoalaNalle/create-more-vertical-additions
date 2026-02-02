@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "cmverticaladditions:vertical_belt_connector"
+    }
+  ],
+  "result": {
+    "id": "create:belt_connector",
+    "count": 1
+  }
+}

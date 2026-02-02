@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "create:belt_connector"
+    }
+  ],
+  "result": {
+    "id": "cmverticaladditions:vertical_belt_connector",
+    "count": 1
+  }
+}
