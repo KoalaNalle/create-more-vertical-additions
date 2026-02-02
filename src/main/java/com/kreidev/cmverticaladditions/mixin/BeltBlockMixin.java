@@ -1,6 +1,5 @@
 package com.kreidev.cmverticaladditions.mixin;
 
-import com.kreidev.cmverticaladditions.VerticalAdditions;
 import com.kreidev.cmverticaladditions.VerticalBeltBlock;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -34,7 +33,6 @@ public class BeltBlockMixin {
             )
     )
     private static boolean initBeltHas(BlockEntry<Block> instance, BlockState state, Operation<Boolean> original) {
-        VerticalAdditions.LOGGER.debug("initBelt: " + state);
         return original.call(instance, state) || state.getBlock() instanceof BeltBlock;
     }
 
@@ -46,7 +44,6 @@ public class BeltBlockMixin {
             )
     )
     private static boolean onRemoveHas(BlockEntry<Block> instance, BlockState state, Operation<Boolean> original) {
-        VerticalAdditions.LOGGER.debug("onRemove: " + state);
         return original.call(instance, state) || state.getBlock() instanceof BeltBlock;
     }
 
@@ -58,7 +55,6 @@ public class BeltBlockMixin {
             )
     )
     private static boolean getBeltChainHas(BlockEntry<Block> instance, BlockState state, Operation<Boolean> original) {
-        VerticalAdditions.LOGGER.debug("getBeltChain: " + state);
         return original.call(instance, state) || state.getBlock() instanceof BeltBlock;
     }
 
