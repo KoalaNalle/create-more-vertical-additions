@@ -281,8 +281,11 @@ public class VerticalBeltRenderer extends BeltRenderer {
         float slopeOffset = 1 / 8f;
         if (slopeShadowOnly)
             ms.pushPose();
-        if (!renderUpright || slopeShadowOnly)
-            ms.mulPose((slopeAlongX ? Axis.ZP : Axis.XP).rotationDegrees(climbAngle));
+        if (!renderUpright || slopeShadowOnly) {  // NOTE: Janky shadow rotation, replace later
+            Direction dir = be.getBlockState().getValue(BeltBlock.HORIZONTAL_FACING).getClockWise();
+            float angle = (dir == Direction.NORTH || dir == Direction.EAST) ? -climbAngle : climbAngle;
+            ms.mulPose((slopeAlongX ? Axis.ZP : Axis.XP).rotationDegrees(angle));
+        }
         ms.pushPose();
         ms.translate(0, -1 / 8f + 0.005f, 0);
         ShadowRenderHelper.renderShadow(ms, buffer, .75f, .2f);
