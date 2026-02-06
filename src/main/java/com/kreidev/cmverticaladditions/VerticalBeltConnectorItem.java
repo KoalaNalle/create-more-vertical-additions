@@ -15,6 +15,7 @@ import net.createmod.catnip.math.VecHelper;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -27,10 +28,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.LinkedList;
 import java.util.List;
 
 @MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class VerticalBeltConnectorItem extends BlockItem {
 
     public VerticalBeltConnectorItem(Properties properties) {
@@ -218,6 +221,13 @@ public class VerticalBeltConnectorItem extends BlockItem {
         return positions;
     }
 
+    @Override
+    public Component getName(ItemStack stack) {
+        if (ClientConfig.stickyTextures) {
+            return Component.translatable("item.cmverticaladditions.vertical_belt_connector.sticky");
+        }
+        return super.getName(stack);
+    }
 }
 
 

@@ -9,7 +9,7 @@ public class ClientConfig {
 
     private static final ModConfigSpec.BooleanValue STICKY_TEXTURES = BUILDER
             .comment("Use the sticky belt textures on vertical belts")
-            .define("stickyTextures", true);
+            .define("stickyTextures", false);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
