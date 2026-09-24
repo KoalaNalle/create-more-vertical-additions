@@ -30,7 +30,7 @@ public class VerticalBeltBlockEntity extends BeltBlockEntity {
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
-                VerticalAdditions.VERTICAL_BELT_BLOCK_ENTITY.get(),
+                VerticalAdditionsContent.VERTICAL_BELT_BLOCK_ENTITY.get(),
                 (be, context) -> {
                     if (!BeltBlock.canTransportObjects(be.getBlockState()))
                         return null;

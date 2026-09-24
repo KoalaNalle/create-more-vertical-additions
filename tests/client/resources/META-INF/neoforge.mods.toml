@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="Lambda License"
+[[mods]]
+modId="cmverticaladditions_startup_check"
+version="1.0"
+displayName="Vertical Belts startup regression check (development only)"
+[[dependencies.cmverticaladditions_startup_check]]
+modId="cmverticaladditions"
+type="required"
+versionRange="[1.0.0,)"
+ordering="AFTER"
+side="CLIENT"

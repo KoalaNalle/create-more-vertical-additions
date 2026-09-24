@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "trial": "baselineA_20260924/B_2",
+  "phase": "client initialization, before world creation",
+  "status": "failed",
+  "error": "Create More: Vertical Belts (cmverticaladditions) failed RegisterClientExtensionsEvent: Duplicate client extensions registration for cmverticaladditions:vertical_belt; both instances were Create BeltBlock.RenderProperties.",
+  "failure_log_sha256": "c708d5f11bcb0303cd2b55142173f72b30c7fc8280cd2be8f60ba0c2060e0db8",
+  "crash_report_sha256": "095cb173a060eb202425b6b133fd06671f2a60c1600dac2690fe1c42a51a0b1a",
+  "retained_local_log": "build/fullpack-runs/baselineA_20260924/B_2.log",
+  "retained_local_crash_report": "run-fullpack/crash-reports/crash-2026-09-24_20.38.08-client.txt",
+  "baseline_jar": "cmverticaladditions-neoforge-1.0.0.jar",
+  "source_instance_changed": false,
+  "interpretation": "Intermittent full-pack startup integration defect; no new-world generation measurement exists for this attempt. Attribution beyond the duplicate registration path has not been established."
+}

@@ -37,7 +37,7 @@ import java.util.List;
 public class VerticalBeltConnectorItem extends BlockItem {
 
     public VerticalBeltConnectorItem(Properties properties) {
-        super(VerticalAdditions.VERTICAL_BELT_BLOCK.get(), properties);
+        super(VerticalAdditionsContent.VERTICAL_BELT_BLOCK.get(), properties);
     }
 
     @Override
@@ -165,7 +165,7 @@ public class VerticalBeltConnectorItem extends BlockItem {
         };
 
         List<BlockPos> beltsToCreate = getVerticalBeltChainBetween(start, end);
-        BlockState beltBlock = VerticalAdditions.VERTICAL_BELT_BLOCK.getDefaultState();
+        BlockState beltBlock = VerticalAdditionsContent.VERTICAL_BELT_BLOCK.getDefaultState();
         boolean failed = false;
 
         for (BlockPos pos : beltsToCreate) {

@@ -1,0 +1,19 @@
+{
+  "completed_at_utc": "2026-09-24T18:44:03.630630900Z",
+  "world_opened": false,
+  "deferred_registrate_callbacks": 1,
+  "extension_class": "net.neoforged.neoforge.client.extensions.common.IClientBlockExtensions$1",
+  "model_class": "com.kreidev.cmverticaladditions.VerticalBeltModel",
+  "renderer_class": "com.kreidev.cmverticaladditions.VerticalBeltRenderer",
+  "passed": false,
+  "loaded_mods": [
+    "cmverticaladditions@1.0.0",
+    "cmverticaladditions_startup_check@1.0",
+    "create@6.0.8",
+    "flywheel@1.0.5",
+    "jei@19.25.1.332",
+    "minecraft@1.21.1",
+    "neoforge@21.1.216",
+    "ponder@1.0.64"
+  ]
+}

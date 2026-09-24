@@ -43,7 +43,7 @@ public class VerticalBeltConnectorHandler {
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack heldItem = player.getItemInHand(hand);
 
-            if (!VerticalAdditions.VERTICAL_BELT_CONNECTOR.isIn(heldItem))
+            if (!VerticalAdditionsContent.VERTICAL_BELT_CONNECTOR.isIn(heldItem))
                 continue;
 
             if (!heldItem.has(AllDataComponents.BELT_FIRST_SHAFT))

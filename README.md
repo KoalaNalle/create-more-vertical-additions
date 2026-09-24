@@ -9,3 +9,7 @@ for all the subproject repositories.
 - [Package Couriers](https://github.com/rekales//create-more-package-couriers)
 - Electric Pump (WIP)
 
+## Development notes
+
+- [Client registration startup fix and live regression check](docs/CLIENT_REGISTRATION_STARTUP.md)
+

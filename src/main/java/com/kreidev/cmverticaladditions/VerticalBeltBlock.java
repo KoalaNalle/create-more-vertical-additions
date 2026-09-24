@@ -54,7 +54,7 @@ public class VerticalBeltBlock extends BeltBlock {
 
     @Override
     public BlockEntityType<? extends BeltBlockEntity> getBlockEntityType() {
-        return VerticalAdditions.VERTICAL_BELT_BLOCK_ENTITY.get();
+        return VerticalAdditionsContent.VERTICAL_BELT_BLOCK_ENTITY.get();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class VerticalBeltBlock extends BeltBlock {
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos,
                                        Player player) {
-        return VerticalAdditions.VERTICAL_BELT_CONNECTOR.asStack();
+        return VerticalAdditionsContent.VERTICAL_BELT_CONNECTOR.asStack();
     }
 
     // Only change is the isConnector check
@@ -74,7 +74,7 @@ public class VerticalBeltBlock extends BeltBlock {
         if (player.isShiftKeyDown() || !player.mayBuild())
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         boolean isWrench = AllItems.WRENCH.isIn(stack);
-        boolean isConnector = VerticalAdditions.VERTICAL_BELT_CONNECTOR.isIn(stack);
+        boolean isConnector = VerticalAdditionsContent.VERTICAL_BELT_CONNECTOR.isIn(stack);
         boolean isShaft = AllBlocks.SHAFT.isIn(stack);
         boolean isDye = stack.is(Tags.Items.DYES);
         boolean hasWater = GenericItemEmptying.emptyItem(level, stack, true)
@@ -171,7 +171,7 @@ public class VerticalBeltBlock extends BeltBlock {
         if (state.getValue(PART) != BeltPart.MIDDLE)
             required.add(AllBlocks.SHAFT.asStack());
         if (state.getValue(PART) == BeltPart.START)
-            required.add(VerticalAdditions.VERTICAL_BELT_CONNECTOR.asStack());
+            required.add(VerticalAdditionsContent.VERTICAL_BELT_CONNECTOR.asStack());
         if (required.isEmpty())
             return ItemRequirement.NONE;
         return new ItemRequirement(ItemRequirement.ItemUseType.CONSUME, required);
